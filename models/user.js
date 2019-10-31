@@ -5,10 +5,10 @@ const Schema= mongoose.Schema;
 const bcrypt= require('bcrypt-nodejs')
 
 const UserSchema= Schema({
-    email:{ type: String, unique: true , lowercase: true},
+    email:{ type: String, unique: true , lowercase: true, required: true},
     displayName: String,
     avatar: String,
-    password:{type: String, select: false },
+    password:{type: String, select: false, required: true },
     singipDate:{type: Date, default: Date.now()},
 })
 

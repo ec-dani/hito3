@@ -19,7 +19,7 @@ const UserSchema = Schema({
   singipDate: { type: Date, default: Date.now() },
 });
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function (next) {
   const user = this;
   if (!user.isModified('password')) return next();
 

@@ -4,11 +4,12 @@ const mongoose = require('mongoose');
 
 const port = process.env.PORT || 3000;
 const app = require('./app');
+const config = require('./config');
 
 
-mongoose.connect('mongodb://localhost:27017/apiex', (err, res) => {
+mongoose.connect(config.db, (err, res) => {
   if (err) { return console.log(`ERROR: connecting to Database. ${err}`); }
-  app.listen(port, () => {
+  app.listen(config.port, () => {
     console.log(`API REST corriendo  http://localhost:${port}`);
   });
 });

@@ -5,7 +5,8 @@ const usuarioMidd = require('../middlewares/usuarioMidd');
 
 const api = express.Router();
 
-api.post('/', userController.createUser);
+api.post('/create', userController.createUser);
+api.post('/login', userController.logIn);
 api.get('/todos', userController.getUsers);
 api.get('/uno/:email', userController.getUser);
 api.delete('/:email', userController.deleteUser);

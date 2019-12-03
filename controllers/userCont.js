@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const User = require('../models/user');
 const usuariomidd = require('../middlewares/usuarioMidd');
 
@@ -21,14 +22,24 @@ function createUser(req, res) {
 
 function logIn(req, res) {
   User.findOne({ email: req.body.email }, (err, user) => {
-    if (err) return res.status(500).send({ message: `Error ${err}` });
+    console.log(req.body.email);
+    if (err) return res.status(500).send({ message: `Err ${err}` });
     if (!user) return res.status(404).send({ message: 'No existe el usuario' });
-    return res.status(200).send({
-      message: 'Login correcto',
-      token: usuariomidd.createToken(user),
+
+    user.comparePassword({ password: req.body.password }, (isMatch, error) => {
+      console.log(' is match de cont : ', isMatch);
+      if (error) return res.status(500).send({ message: `Error ${err}` });
+      if (isMatch) {
+        return res.status(200).send({
+          message: 'Login correcto',
+          token: usuariomidd.createToken(user),
+        });
+      }
+      return res.status(404).send({ message: 'login incorrecto' });
     });
   });
 }
+
 
 function getUsers(req, res) {
   User.find({}, (err, users) => {

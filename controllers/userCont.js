@@ -22,12 +22,10 @@ function createUser(req, res) {
 
 function logIn(req, res) {
   User.findOne({ email: req.body.email }, (err, user) => {
-    console.log(req.body.email);
     if (err) return res.status(500).send({ message: `Err ${err}` });
     if (!user) return res.status(404).send({ message: 'No existe el usuario' });
 
-    user.comparePassword({ password: req.body.password }, (isMatch, error) => {
-      console.log(' is match de cont : ', isMatch);
+    user.comparePassword(req.body.password, (error, isMatch) => {
       if (error) return res.status(500).send({ message: `Error ${err}` });
       if (isMatch) {
         return res.status(200).send({

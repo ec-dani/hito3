@@ -9,13 +9,13 @@ function createToken(user) {
     // eslint-disable-next-line no-underscore-dangle
     sub: user._id,
     iat: moment().unix(),
-    exp: moment().add(10, 'days').unix(),
+    exp: moment().add(1, 'minute').unix(),
   };
   return jwt.encode(playload, config.SECRET_TOKEN);
 }
 
 function decodeToken(token) {
-  const decoded = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     try {
       const playload = jwt.decode(token, config.SECRET_TOKEN);
       if (playload.exp <= moment().unix()) {
@@ -28,11 +28,10 @@ function decodeToken(token) {
     } catch (err) {
       reject({
         status: 500,
-        message: 'Token invalido',
+        message: err,
       });
     }
   });
-  return decoded;
 }
 
 function isUser(req, res, next) {
@@ -44,9 +43,7 @@ function isUser(req, res, next) {
       req.user = response;
       next();
     })
-    .catch((response) => {
-      res.status(response.status);
-    });
+    .catch((response) => res.status(response.status).send(response.message));
 }
 
 module.exports = {

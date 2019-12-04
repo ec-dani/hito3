@@ -28,7 +28,7 @@ function getallBooks(req, res) {
 }
 
 function getBookbyTitle(req, res) {
-  Book.findOne({ titulo: req.params.titulo }, (err, book) => {
+  Book.find({ titulo: req.params.titulo }, (err, book) => {
     if (err) return res.status(500).send({ message: `Error ${err}` });
     if (!book) return res.status(404).send({ message: 'No existe libro' });
     return res.status(200).send(book);
@@ -36,7 +36,7 @@ function getBookbyTitle(req, res) {
 }
 
 function getBookbyISBN(req, res) {
-  Book.findOne({ isbn: req.params.isbn }, (err, book) => {
+  Book.find({ isbn: req.params.isbn }, (err, book) => {
     if (err) return res.status(500).send({ message: `Error ${err}` });
     if (!book) return res.status(404).send({ message: 'No existe libro' });
     return res.status(200).send(book);
@@ -52,7 +52,7 @@ function getBookbyDescripcion(req, res) {
 }
 
 function getBookbyAutor(req, res) {
-  Book.findOne({ autor: req.params.autor }, (err, book) => {
+  Book.find({ autor: req.params.autor }, (err, book) => {
     if (err) return res.status(500).send({ message: `Error ${err}` });
     if (!book) return res.status(404).send({ message: 'No existe libro' });
     return res.status(200).send(book);
@@ -60,7 +60,7 @@ function getBookbyAutor(req, res) {
 }
 
 function getBookbyFechapubli(req, res) {
-  Book.findOne({ fechapublicacion: req.params.fechapublicacion }, (err, book) => {
+  Book.find({ fechapublicacion: req.params.fechapublicacion }, (err, book) => {
     if (err) return res.status(500).send({ message: `Error ${err}` });
     if (!book) return res.status(404).send({ message: 'No existe libro' });
     return res.status(200).send(book);
@@ -68,7 +68,7 @@ function getBookbyFechapubli(req, res) {
 }
 
 function getBookbyPrecio(req, res) {
-  Book.findOne({ precio: req.params.precio }, (err, book) => {
+  Book.find({ precio: req.params.precio }, (err, book) => {
     if (err) return res.status(500).send({ message: `Error ${err}` });
     if (!book) return res.status(404).send({ message: 'No existe libro' });
     return res.status(200).send(book);
@@ -76,7 +76,7 @@ function getBookbyPrecio(req, res) {
 }
 
 function getBookbyEditorial(req, res) {
-  Book.findOne({ editorial: req.params.editorial }, (err, book) => {
+  Book.find({ editorial: req.params.editorial }, (err, book) => {
     if (err) return res.status(500).send({ message: `Error ${err}` });
     if (!book) return res.status(404).send({ message: 'No existe libro' });
     return res.status(200).send(book);
